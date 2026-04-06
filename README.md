@@ -252,17 +252,3 @@ Building this project surfaced several real engineering trade-offs:
 
 **dbt incremental vs. full table** — `delay_summary` is materialised as a full table rather than incremental because the grain (date + route) means late data changes historical rows — incremental models would silently miss those updates.
 
----
-
-## License
-
-MIT — free to use, fork, and build on.
-
----
-
-## Connect
-
-Built by **Mansi Bhadani** as part of a data engineering portfolio.
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?logo=linkedin)](https://linkedin.com/in/YOUR_HANDLE)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?logo=github)](https://github.com/YOUR_USERNAME)
