@@ -1,0 +1,67 @@
+version: 2
+
+sources:
+  - name: transit_raw
+    database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+    schema: TRANSIT_RAW
+    description: "Raw events written by PySpark Structured Streaming."
+    tables:
+      - name: EVENTS
+        description: "1-to-1 mirror of Kafka messages after DQ pass."
+        columns:
+          - name: event_id
+            description: "UUID v4 — unique per transit event."
+            tests: [not_null, unique]
+          - name: route_id
+            description: "MTA route identifier."
+            tests: [not_null]
+          - name: status
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ["ON_TIME", "DELAYED", "CANCELLED", "UNKNOWN"]
+          - name: direction
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ["N", "S"]
+          - name: scheduled_ts
+            tests: [not_null]
+
+models:
+  - name: stg_transit_events
+    description: "Cleansed view on raw events. Excludes dead-letter rows."
+    columns:
+      - name: event_id
+        tests: [not_null, unique]
+      - name: route_id
+        tests: [not_null]
+      - name: status
+        tests:
+          - accepted_values:
+              values: ["ON_TIME", "DELAYED", "CANCELLED", "UNKNOWN"]
+
+  - name: delay_summary
+    description: "Daily per-route delay statistics. Powers route performance dashboard."
+    columns:
+      - name: date_local
+        tests: [not_null]
+      - name: route_id
+        tests: [not_null]
+      - name: on_time_pct
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 100
+
+  - name: hourly_delay_agg
+    description: "Hourly delay trend across all routes."
+    columns:
+      - name: date_local
+        tests: [not_null]
+      - name: hour_of_day
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 23

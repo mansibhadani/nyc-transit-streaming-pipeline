@@ -1,0 +1,35 @@
+# ── Kafka ──────────────────────────────────────────────────────────────────────
+confluent-kafka[avro]==2.3.0
+fastavro==1.9.4
+
+# ── MTA GTFS-Realtime feed parsing ────────────────────────────────────────────
+gtfs-realtime-bindings==1.0.0
+requests==2.31.0
+
+# ── PySpark ───────────────────────────────────────────────────────────────────
+pyspark==3.4.2
+
+# ── Data quality ──────────────────────────────────────────────────────────────
+great-expectations==0.18.12
+
+# ── dbt ───────────────────────────────────────────────────────────────────────
+dbt-core==1.7.9
+dbt-snowflake==1.7.4
+
+# ── Airflow (core + providers) ────────────────────────────────────────────────
+apache-airflow==2.8.1
+apache-airflow-providers-snowflake==5.1.0
+apache-airflow-providers-http==4.8.0
+
+# ── Snowflake Python connector (used by dbt + direct queries) ─────────────────
+snowflake-connector-python==3.7.0
+snowflake-sqlalchemy==1.5.1
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+python-dotenv==1.0.1
+tenacity==8.2.3
+
+# ── Dev / testing ─────────────────────────────────────────────────────────────
+pytest==8.1.0
+pytest-mock==3.12.0
+ruff==0.3.5

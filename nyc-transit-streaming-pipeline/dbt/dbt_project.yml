@@ -1,0 +1,25 @@
+name: nyc_transit
+version: '1.0.0'
+config-version: 2
+
+profile: nyc_transit
+
+model-paths: ["models"]
+test-paths:  ["tests"]
+seed-paths:  ["seeds"]
+
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  nyc_transit:
+    staging:
+      +materialized: view
+      +schema: TRANSIT_STAGING
+      +tags: ["staging"]
+    curated:
+      +materialized: table
+      +schema: TRANSIT_CURATED
+      +tags: ["curated"]
+      +post-hook:
+        - "GRANT SELECT ON {{ this }} TO ROLE REPORTER"

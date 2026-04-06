@@ -1,0 +1,6 @@
+pyspark==3.4.2
+confluent-kafka[avro]==2.3.0
+snowflake-connector-python==3.6.0
+great-expectations==0.18.8
+requests==2.31.0
+fastavro==1.9.4

@@ -1,0 +1,56 @@
+# ── Secrets ────────────────────────────────────────────────────────────────────
+.env
+*.pem
+*.key
+
+# ── Python ─────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+venv/
+env/
+
+# ── Spark ──────────────────────────────────────────────────────────────────────
+/tmp/checkpoints/
+spark-warehouse/
+derby.log
+metastore_db/
+
+# ── dbt ────────────────────────────────────────────────────────────────────────
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+dbt/.user.yml
+
+# ── Airflow ────────────────────────────────────────────────────────────────────
+airflow/logs/
+airflow/plugins/
+airflow.cfg
+airflow.db
+standalone_admin_password.txt
+
+# ── Docker ─────────────────────────────────────────────────────────────────────
+.docker/
+
+# ── OS / Editor ────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# ── Testing ────────────────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── Data files (don't commit raw data) ────────────────────────────────────────
+data/*.csv
+data/*.parquet
+data/*.json
+!data/stops.txt

@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: route_performance
+    description: "Daily route-level performance — primary dashboard model"
+    columns:
+      - name: date_partition
+        tests: [not_null]
+      - name: route_id
+        tests: [not_null]
+      - name: on_time_pct
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 100
+      - name: total_events
+        tests: [not_null]
+
+  - name: delay_summary
+    description: "Hourly delay summary per route"
+    columns:
+      - name: date_partition
+        tests: [not_null]
+      - name: route_id
+        tests: [not_null]
+
+  - name: worst_stops
+    description: "Top 20 worst stops by avg delay per day"
+    columns:
+      - name: delay_rank
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 20

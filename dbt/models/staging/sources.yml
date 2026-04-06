@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: raw
+    database: TRANSIT_DB
+    schema: RAW
+    description: "Raw Kafka events loaded by PySpark Structured Streaming"
+    tables:
+      - name: events
+        description: "Transit events 1:1 with Kafka messages"
+        columns:
+          - name: event_id
+            description: "Unique event UUID from producer"
+            tests: [not_null, unique]
+          - name: route_id
+            description: "MTA route identifier"
+            tests: [not_null]
+          - name: stop_id
+            tests: [not_null]
+          - name: status
+            tests:
+              - not_null
+              - accepted_values:
+                  values: [ON_TIME, DELAYED, CANCELLED, ARRIVED]
+          - name: scheduled_time
+            tests: [not_null]
